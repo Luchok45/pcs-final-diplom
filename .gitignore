@@ -1,3 +1,9 @@
-target
+/shelf/
+/workspace.xml
+out/
+target/
 *.iml
 .idea
+basket.txt
+basket.bin
+Array/
