@@ -1,67 +1,38 @@
-import java.io.File;
-import java.io.IOException;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-
-public class PageEntry implements Comparable<PageEntry> {
-    private final String pdfName;
-    private final int page;
-    private final int count;
+class PageEntry {
+    private String fileName;
+    private int page;
     private String text;
+    private int count;
 
-    public PageEntry(String pdfName, int page, int count) {
-        this.pdfName = pdfName;
-        this.page = page;
+    public PageEntry(String fileName, int pageNumber, String text) {
+        this.fileName = fileName;
+        this.page = pageNumber;
+        if (text != null) {
+            this.text = text;
+        } else {
+            // Обработка случая, когда передается некорректное значение текста
+            throw new IllegalArgumentException("Invalid text value");
+        }
+    }
+    public PageEntry(String fileName, int pageNumber, int count) {
+        this.fileName = fileName;
+        this.page = pageNumber;
         this.count = count;
     }
 
-    public String getPdfName() {
-        return pdfName;
+    public String getFileName() {
+        return fileName;
     }
-
     public int getPage() {
         return page;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public PageEntry incrementCount() {
-        return new PageEntry(this.pdfName, this.page, this.count + 1);
-    }
-
-    private static String getPageText(String pdfName, int pageNum) {
-        try (PDDocument document = PDDocument.load(new File(pdfName))) {
-            PDFTextStripper stripper = new PDFTextStripper();
-            stripper.setStartPage(pageNum);
-            stripper.setEndPage(pageNum);
-            return stripper.getText(document);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    static PageEntry getPageEntry(String pdfName, int pageNum) {
-        String text = getPageText(pdfName, pageNum);
-        return new PageEntry(pdfName, pageNum,  0);
     }
 
     public String getText() {
         return text;
     }
-    @Override
-    public int compareTo(PageEntry other) {
-        return Integer.compare(other.count, this.count);
-    }
 
     @Override
     public String toString() {
-        return "PageEntry{" +
-                "pdfName='" + pdfName + '\'' +
-                ", page=" + page +
-                ", count=" + count +
-                '}';
+        return "File: " + fileName + " | Page: " + page + " | Word count: " + count;
     }
 }
-
