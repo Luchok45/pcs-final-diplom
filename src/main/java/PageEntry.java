@@ -10,7 +10,6 @@ class PageEntry {
         if (text != null) {
             this.text = text;
         } else {
-            // Обработка случая, когда передается некорректное значение текста
             throw new IllegalArgumentException("Invalid text value");
         }
     }

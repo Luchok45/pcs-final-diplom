@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         SearchEngine searchEngine = new BooleanSearchEngine();
-        String folderPath = "C:/Users/msi/IdeaProjects/pcs-final-diplom/pdfs";
+        String folderPath = "pdfs";
         File folder = new File(folderPath);
         if (folder.exists() && folder.isDirectory()) {
             searchEngine.indexFiles(folder);
