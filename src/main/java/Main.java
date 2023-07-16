@@ -1,11 +1,10 @@
 import com.google.gson.Gson;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -14,8 +13,8 @@ public class Main {
         File folder = new File(folderPath);
         if (folder.exists() && folder.isDirectory()) {
             searchEngine.indexFiles(folder);
-            try (ServerSocket serverSocket = new ServerSocket(8999)) {
-                System.out.println("Сервер запущен и слушает порт 8999");
+            try (ServerSocket serverSocket = new ServerSocket(8989)) {
+                System.out.println("Сервер запущен и слушает порт 8989");
                 while (true) {
                     try (
                             Socket socket = serverSocket.accept();
@@ -23,7 +22,6 @@ public class Main {
                             OutputStream outputStream = socket.getOutputStream();
                             BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
                             PrintWriter out = new PrintWriter(outputStream);
-                            Scanner scanner = new Scanner(System.in);
                     ) {
                         String word = in.readLine();
 
