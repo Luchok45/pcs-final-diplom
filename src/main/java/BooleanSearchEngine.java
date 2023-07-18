@@ -6,6 +6,7 @@ import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class BooleanSearchEngine implements SearchEngine {
@@ -52,10 +53,10 @@ class BooleanSearchEngine implements SearchEngine {
             int wordCount = countWordOccurrences(entry.getText(), keyword);
             if (wordCount > 0) {
                 PageEntry resultEntry = new PageEntry(entry.getFileName(), entry.getPage(), wordCount);
-                results.add(resultEntry);
+                results.add( resultEntry);
             }
         }
-
+        Collections.reverse(results);
         return results;
     }
 
